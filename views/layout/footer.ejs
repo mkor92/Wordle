@@ -1,0 +1,13 @@
+<footer class="fixed inset-x-0 bottom-0 w-full bg-slate-700 bg-opacity-30 h-28">
+  <nav class="h-28 justify-evenly flex flex-col items-center">
+    <% menu.forEach(function(a) { %>
+    <li class="list-none">
+      <a
+        class="text-white text <% if (a.active) { %> !text-gray-100 font-bold <% } %>"
+        href="<%= a.link %>">
+        <%= a.label %>
+      </a>
+    </li>
+    <% }); %>
+  </nav>
+</footer>

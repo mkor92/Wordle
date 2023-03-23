@@ -2,9 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+
+    <link rel="stylesheet" href="../static/css/output.css" />
     <title>Wordle game</title>
   </head>
-  <body></body>
+  <body class="bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-t w-screen min-h-screen">
+    <header class="header w-full bg-slate-500 bg-opacity-30 h-20">
+      <nav class="h-20 justify-evenly flex flex-row items-center">
+        <% menu.forEach(function(a) { %>
+        <li class="list-none">
+          <a
+            class="text-white text-xl <% if (a.active) { %> !text-gray-100 font-bold text-2xl <% } %>"
+            href="<%= a.link %>">
+            <%= a.label %>
+          </a>
+        </li>
+        <% }); %>
+      </nav>
+    </header>
+  </body>
 </html>
