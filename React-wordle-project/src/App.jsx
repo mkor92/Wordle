@@ -1,16 +1,31 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import Header from "./components/Header";
 import Board from "./components/Board";
-import { boardDefault } from "./Words";
+import { boardDefault, generateWordSet } from "./Words";
 import KeyBoard from "./components/KeyBoard";
+import GameOver from "./components/GameOver";
 
 export const AppContext = createContext();
 
 function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letterPos: 0 })
+  const [wordSet, setWordSet] = useState(new Set());
+  const [wrongLetters, setWrongLetter] = useState([]);
+  const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
+  const [correctWord, setCorrectWord] = useState("")
+  useEffect(() => {
+    async function getWords() {
+      const payload = await generateWordSet()
+      setCorrectWord(payload.randomWord)
+      console.log(payload.randomWord)
+      setWordSet(payload.wordSet);
+    }
 
-  const correctWord = "RIGHT";
+    getWords()
+
+  }, [])
+
 
   const onSelectLetter = (keyVal) => {
     if (currAttempt.letterPos > 4) return;
@@ -30,7 +45,25 @@ function App() {
 
   const onEnter = () => {
     if (currAttempt.letterPos !== 5) return;
-    setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 })
+
+    let currWord = "";
+    for (let i = 0; i < 5; i++) {
+      currWord += board[currAttempt.attempt][i];
+    }
+
+    if (wordSet.has(currWord.toLowerCase())) {
+      setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 })
+    } else {
+      alert("Word not found")
+    }
+    if (currWord.toLowerCase() === correctWord) {
+      setGameOver({ gameOver: true, guessedWord: true })
+      return;
+    }
+    if (currAttempt.attempt === 5) {
+      setGameOver({ gameOver: true, guessedWord: false })
+    }
+
   }
   return (
     <div className="App">
@@ -47,10 +80,14 @@ function App() {
               onSelectLetter,
               onDelete,
               onEnter,
-              correctWord
+              correctWord,
+              wrongLetters,
+              setWrongLetter,
+              gameOver,
+              setGameOver
             }}>
             <Board />
-            <KeyBoard />
+            {gameOver.gameOver ? <GameOver /> : <KeyBoard />}
           </AppContext.Provider>
         </div>
       </main>
