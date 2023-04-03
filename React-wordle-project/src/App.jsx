@@ -1,9 +1,13 @@
 import { useState, createContext, useEffect } from "react";
 import Header from "./components/Header";
 import Board from "./components/Board";
-import { boardDefault, generateWordSet } from "./Words";
+import { boardDefault } from "./components/BoardDefault";
+import GenerateWordSet from "./components/Words"
 import KeyBoard from "./components/KeyBoard";
 import GameOver from "./components/GameOver";
+import WordLength from "./components/WordLength";
+
+
 
 export const AppContext = createContext();
 
@@ -14,25 +18,51 @@ function App() {
   const [wrongLetters, setWrongLetter] = useState([]);
   const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
   const [correctWord, setCorrectWord] = useState("")
+  const [length, setLength] = useState(5);
+  console.log(length)
+
   useEffect(() => {
     async function getWords() {
-      const payload = await generateWordSet()
+      let wordLength;
+      if (length == 5) {
+        wordLength = 5;
+
+      } else if (length == 6) {
+        wordLength = 6;
+
+      }
+      else if (length == 7) {
+        wordLength = 7;
+      }
+      else if (length == 8) {
+        wordLength = 8;
+      }
+      else if (length == 9) {
+        wordLength = 9;
+      }
+      else if (length == 10) {
+        wordLength = 10;
+      }
+      const payload = await GenerateWordSet(wordLength)
+      setLength(wordLength)
       setCorrectWord(payload.randomWord)
       console.log(payload.randomWord)
       setWordSet(payload.wordSet);
+
     }
 
     getWords()
 
-  }, [])
+  }, [(length)])
 
 
   const onSelectLetter = (keyVal) => {
-    if (currAttempt.letterPos > 4) return;
+    if (currAttempt.letterPos == length) return;
     const newBoard = [...board];
     newBoard[currAttempt.attempt][currAttempt.letterPos] = keyVal;
     setBoard(newBoard);
     setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos + 1 })
+
   }
 
   const onDelete = () => {
@@ -41,14 +71,16 @@ function App() {
     newBoard[currAttempt.attempt][currAttempt.letterPos - 1] = "";
     setBoard(newBoard)
     setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos - 1 })
+
   }
 
   const onEnter = () => {
-    if (currAttempt.letterPos !== 5) return;
+    if (currAttempt.letterPos !== length) return;
 
     let currWord = "";
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < length; i++) {
       currWord += board[currAttempt.attempt][i];
+
     }
 
     if (wordSet.has(currWord.toLowerCase())) {
@@ -71,8 +103,11 @@ function App() {
       <main className="flex flex-col justify-center items-center h-full mt-16">
         <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center">
           <h1 className="text-4xl w-fit mb-5">Wordle</h1>
+
           <AppContext.Provider
             value={{
+              length,
+              setLength,
               board,
               setBoard,
               currAttempt,
@@ -85,7 +120,9 @@ function App() {
               setWrongLetter,
               gameOver,
               setGameOver
+
             }}>
+            <WordLength />
             <Board />
             {gameOver.gameOver ? <GameOver /> : <KeyBoard />}
           </AppContext.Provider>
