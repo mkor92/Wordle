@@ -1,8 +1,6 @@
 
 export default async function GenerateWordSet(number, unique) {
 
-
-
   let wordSet;
   let randomWord;
   const res = await fetch("/api/words")
@@ -15,116 +13,73 @@ export default async function GenerateWordSet(number, unique) {
   const tenWords = payload.data[5].words10
   let regexp = new RegExp(/^(?!.*(.).*\1)[a-z]+$/);
 
+  function GenerateUnique(input) {
+    let uniqueRandomWord = input.filter(words => {
+      return words.match(regexp)
+    })
+
+    randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
+    wordSet = new Set(uniqueRandomWord)
+    console.log(`${randomWord} + "unique"`)
+  }
+
+
+  function GenerateNotUnique(input) {
+    randomWord = input[Math.floor(Math.random() * input.length)]
+    wordSet = new Set(input)
+    console.log(`${randomWord} + "NOT"`)
+  }
+
 
   if (number == 5) {
     if (unique) {
-      let uniqueRandomWord = fiveWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
-
+      GenerateUnique(fiveWords)
     } else {
-      randomWord = fiveWords[Math.floor(Math.random() * fiveWords.length)]
-      wordSet = new Set(fiveWords)
-      console.log(`${randomWord} + "NOT"`)
-
+      GenerateNotUnique(fiveWords)
     }
-
-
-  } else if (number == 6) {
-    if (unique) {
-      let uniqueRandomWord = sixWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
-
-    } else {
-      randomWord = sixWords[Math.floor(Math.random() * sixWords.length)]
-      wordSet = new Set(sixWords)
-      console.log(`${randomWord} + "NOT"`)
-
-    }
-
   }
+
+  else if (number == 6) {
+    if (unique) {
+      GenerateUnique(sixWords)
+    } else {
+      GenerateNotUnique(sixWords)
+    }
+  }
+
   else if (number == 7) {
     if (unique) {
-      let uniqueRandomWord = sevenWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
-
+      GenerateUnique(sevenWords)
     } else {
-      randomWord = sevenWords[Math.floor(Math.random() * sevenWords.length)]
-      wordSet = new Set(sevenWords)
-      console.log(`${randomWord} + "NOT"`)
-
+      GenerateNotUnique(sevenWords)
     }
-
   }
+
   else if (number == 8) {
     if (unique) {
-      let uniqueRandomWord = eightWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
-
+      GenerateUnique(eightWords)
     } else {
-      randomWord = eightWords[Math.floor(Math.random() * eightWords.length)]
-      wordSet = new Set(eightWords)
-      console.log(`${randomWord} + "NOT"`)
-
+      GenerateNotUnique(eightWords)
     }
-
   }
+
   else if (number == 9) {
     if (unique) {
-      let uniqueRandomWord = nineWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
+      GenerateUnique(nineWords)
 
     } else {
-      randomWord = nineWords[Math.floor(Math.random() * nineWords.length)]
-      wordSet = new Set(nineWords)
-      console.log(`${randomWord} + "NOT"`)
-
+      GenerateNotUnique(nineWords)
     }
   }
+
   else if (number == 10) {
     if (unique) {
-      let uniqueRandomWord = tenWords.filter(words => {
-        return words.match(regexp)
-      })
-
-      randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
-      wordSet = new Set(uniqueRandomWord)
-      console.log(`${randomWord} + "unique"`)
+      GenerateUnique(tenWords)
 
     } else {
-      randomWord = tenWords[Math.floor(Math.random() * tenWords.length)]
-      wordSet = new Set(tenWords)
-      console.log(`${randomWord} + "NOT"`)
-
+      GenerateNotUnique(tenWords)
     }
   }
-
-
-
 
   return { wordSet, randomWord }
 
