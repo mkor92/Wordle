@@ -13,13 +13,16 @@ export const AppContext = createContext();
 
 function App() {
   const [board, setBoard] = useState(boardDefault);
+  const [startTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(null)
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letterPos: 0 })
   const [wordSet, setWordSet] = useState(new Set());
   const [wrongLetters, setWrongLetter] = useState([]);
   const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
   const [correctWord, setCorrectWord] = useState("")
   const [length, setLength] = useState(5);
-  console.log(length)
+  const [unique, setUnique] = useState(false)
+  const fireGetWords = length + unique
 
   useEffect(() => {
     async function getWords() {
@@ -43,17 +46,17 @@ function App() {
       else if (length == 10) {
         wordLength = 10;
       }
-      const payload = await GenerateWordSet(wordLength)
+      const payload = await GenerateWordSet(wordLength, unique)
       setLength(wordLength)
       setCorrectWord(payload.randomWord)
-      console.log(payload.randomWord)
+
       setWordSet(payload.wordSet);
 
     }
 
     getWords()
 
-  }, [(length)])
+  }, [(fireGetWords)])
 
 
   const onSelectLetter = (keyVal) => {
@@ -90,6 +93,7 @@ function App() {
     }
     if (currWord.toLowerCase() === correctWord) {
       setGameOver({ gameOver: true, guessedWord: true })
+      setEndTime(new Date())
       return;
     }
     if (currAttempt.attempt === 5) {
@@ -106,6 +110,11 @@ function App() {
 
           <AppContext.Provider
             value={{
+              unique,
+              setUnique,
+              startTime,
+              setEndTime,
+              endTime,
               length,
               setLength,
               board,
