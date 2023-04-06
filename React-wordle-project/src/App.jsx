@@ -79,6 +79,11 @@ function App() {
 
   const onEnter = () => {
     if (currAttempt.letterPos !== length) return;
+    if (!gameOver) {
+      if (gameOver) {
+        window.location.reload(true)
+      }
+    }
 
     let currWord = "";
     for (let i = 0; i < length; i++) {
@@ -94,8 +99,8 @@ function App() {
     if (currWord.toLowerCase() === correctWord) {
       setGameOver({ gameOver: true, guessedWord: true })
       setEndTime(new Date())
-      return;
     }
+
     if (currAttempt.attempt === 5) {
       setGameOver({ gameOver: true, guessedWord: false })
     }
