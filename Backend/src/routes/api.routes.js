@@ -7,7 +7,7 @@ dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI);
 
-const example = new list({
+/*const example = new list({
   name: "Markus",
   time: 455,
   guesses: 50,
@@ -20,7 +20,7 @@ console.log(result);
 
 list.find().then((users) => {
   console.log(users);
-});
+});*/
 
 const router = Router();
 
@@ -33,9 +33,9 @@ router.get("/highscore", async (req, res) => {
   res.json(highscoreList);
 });
 
-router.post("highscore"),
-  async (req, res) => {
-    const listItem = await listItem.save();
-  };
+router.post("/highscore", async (req, res) => {
+  const listItem = new list(req.body);
+  await listItem.save();
+});
 
 export default router;

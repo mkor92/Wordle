@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/words": "http://localhost:5080/",
+      "/api/highscore": "http://localhost:5080/",
     },
   },
 });
