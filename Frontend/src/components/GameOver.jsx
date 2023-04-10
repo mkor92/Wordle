@@ -17,10 +17,11 @@ function GameOver() {
 
   function getStatus() {
     setStatus(true)
+    handleSubmit()
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit() {
+
     const user = ({
       name: name,
       time: duration,
@@ -48,8 +49,8 @@ function GameOver() {
         <h1>Correct word: {correctWord}</h1>
         {gameOver.guessedWord && (<h3> You guessed in {currAttempt.attempt} attempts</h3>)}
         {gameOver.guessedWord && (<h3 className="mt-3 mb-2"> Send result to highscore? </h3>)}
-        <form onSubmit={handleSubmit}>
-          {gameOver.guessedWord && (<input onChange={getName} type="text" id="name" placeholder="name" className="text-lg text-center"></input>)}
+        <form>
+          {gameOver.guessedWord && (<input maxLength={25} onChange={getName} type="text" id="name" placeholder="Name..." className="text-lg text-center"></input>)}
           {gameOver.guessedWord && (<button type="submit" onClick={getStatus} className="bg-slate-600 text-white p-1 rounded ml-2">SEND</button>)}
         </form>
       </div>

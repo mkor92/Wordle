@@ -15,4 +15,10 @@ router.get("/", async (req, res) => {
   });
 });
 
+router.get("/highscore", async (req, res) => {
+  res.render("highscore", {
+    menu: menuWithActive(menu, "/highscore"),
+  });
+});
+
 export default router;
