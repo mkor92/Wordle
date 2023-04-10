@@ -47,7 +47,7 @@ export default function KeyBoard() {
   }, [handleKeyboard])
 
   return (
-    <div className="lex flex-col justify-center items-center mt-10" onKeyDown={handleKeyboard}>
+    <div className="flex-col hidden sm:flex justify-center items-center mt-10" onKeyDown={handleKeyboard}>
       <div className="line1 flex justify-center">
         {keys1.map((key) => {
           return <Key keyVal={key} wrongKey={wrongLetters.includes(key)} />

@@ -22,6 +22,7 @@ function App() {
   const [correctWord, setCorrectWord] = useState("")
   const [length, setLength] = useState(5);
   const [unique, setUnique] = useState(false)
+  const [status, setStatus] = useState(false)
   const fireGetWords = length + unique
 
   useEffect(() => {
@@ -79,11 +80,6 @@ function App() {
 
   const onEnter = () => {
     if (currAttempt.letterPos !== length) return;
-    if (!gameOver) {
-      if (gameOver) {
-        window.location.reload(true)
-      }
-    }
 
     let currWord = "";
     for (let i = 0; i < length; i++) {
@@ -101,7 +97,7 @@ function App() {
       setEndTime(new Date())
     }
 
-    if (currAttempt.attempt === 5) {
+    if (currAttempt.attempt === 5 && currWord.toLowerCase() != correctWord) {
       setGameOver({ gameOver: true, guessedWord: false })
     }
 
@@ -110,7 +106,7 @@ function App() {
     <div className="App">
       <Header />
       <main className="flex flex-col justify-center items-center h-full mt-16">
-        <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center">
+        <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center max-w-full">
           <h1 className="text-4xl w-fit mb-5">Wordle</h1>
 
           <AppContext.Provider
@@ -119,6 +115,8 @@ function App() {
               setUnique,
               startTime,
               setEndTime,
+              status,
+              setStatus,
               endTime,
               length,
               setLength,
