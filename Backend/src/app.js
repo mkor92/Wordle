@@ -5,7 +5,6 @@ import apiRoutes from "./routes/api.routes.js";
 
 const app = express();
 
-app.set("port", 5080);
 app.set("view engine", "ejs");
 app.use("/static", express.static(resolve("static")));
 
