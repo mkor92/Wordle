@@ -20,14 +20,14 @@ export default async function GenerateWordSet(number, unique) {
 
     randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
     wordSet = new Set(uniqueRandomWord)
-    console.log(`${randomWord} + "unique"`)
+
   }
 
 
   function GenerateNotUnique(input) {
     randomWord = input[Math.floor(Math.random() * input.length)]
     wordSet = new Set(input)
-    console.log(`${randomWord} + "NOT"`)
+
   }
 
 

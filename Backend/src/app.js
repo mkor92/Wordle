@@ -8,6 +8,8 @@ const app = express();
 app.set("port", 5080);
 app.set("view engine", "ejs");
 app.use("/static", express.static(resolve("static")));
+
+//app.use(express.static("../Frontend/dist"));
 app.use(express.json());
 app.use("/", pageRoutes);
 app.use("/api", apiRoutes);
