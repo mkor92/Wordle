@@ -6,6 +6,7 @@ import GenerateWordSet from "./components/Words"
 import KeyBoard from "./components/KeyBoard";
 import GameOver from "./components/GameOver";
 import WordLength from "./components/WordLength";
+import ErrorPopup from "./components/ErrorPopup";
 
 
 
@@ -23,6 +24,7 @@ function App() {
   const [length, setLength] = useState(5);
   const [unique, setUnique] = useState(false)
   const [status, setStatus] = useState(false)
+  const [errorPopup, setErrorPopup] = useState(false)
   const fireGetWords = length + unique
 
   useEffect(() => {
@@ -76,6 +78,10 @@ function App() {
     setBoard(newBoard)
     setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos - 1 })
 
+    if (setErrorPopup) {
+      setErrorPopup(false)
+    }
+
   }
 
   const onEnter = () => {
@@ -90,7 +96,7 @@ function App() {
     if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 })
     } else {
-      alert("Word not found")
+      setErrorPopup(true)
     }
     if (currWord.toLowerCase() === correctWord) {
       setGameOver({ gameOver: true, guessedWord: true })
@@ -135,6 +141,7 @@ function App() {
 
             }}>
             <WordLength />
+            <ErrorPopup trigger={errorPopup} />
             <Board />
             {gameOver.gameOver ? <GameOver /> : <KeyBoard />}
           </AppContext.Provider>
