@@ -8,7 +8,7 @@
     "web": "node ./index.js",
     "start": "node index.js",
     "dev": "concurrently --kill-others \"npm run dev:server\" \"npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch\" ",
-    "dev:server": "nodemon index.js"
+    "dev:server": "nodemon ./index.js"
   },
   "author": "Markus Korhonen",
   "license": "ISC",

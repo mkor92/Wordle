@@ -5,22 +5,9 @@ import * as dotenv from "dotenv";
 import { list } from "../model.js";
 dotenv.config();
 
-mongoose.connect(process.env.MONGODB_URI);
-
-/*const example = new list({
-  name: "Markus",
-  time: 455,
-  guesses: 50,
-  wordLength: 1,
-  unique: false,
-});
-await example.save();
-const result = await list.find({});
-console.log(result);
-
-list.find().then((users) => {
-  console.log(users);
-});*/
+mongoose.connect(
+  "mongodb+srv://mkorhonen:makkiboi@wordlehighscore.5fty7xx.mongodb.net/highscore?retryWrites=true&w=majority"
+);
 
 const router = Router();
 
