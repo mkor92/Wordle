@@ -8460,7 +8460,7 @@ function it({ letterPos: e, attemptVal: n }) {
     a = v[n][e];
   let f = [];
   const y = A.toUpperCase()[e] === a,
-    b = !y && a !== "" && A.toUpperCase().includes(a) && !f.includes(a);
+    b = !y && a !== "" && A.toUpperCase().includes(a);
   return (
     yt.useEffect(() => {
       a !== "" && !y && !b && g((c) => [...c, a]);
@@ -8473,7 +8473,7 @@ function it({ letterPos: e, attemptVal: n }) {
               "h-7 w-7 sm:h-14 sm:w-14 bg-green-600 m-1 flex flex-col justify-center items-center text-1xl font-bold sm:text-4xl rounded",
             children: a,
           }))
-        : b
+        : b && f.includes(!a)
         ? Be("div", {
             className:
               "h-7 w-7 sm:h-14 sm:w-14 bg-yellow-600 m-1 flex flex-col justify-center items-center text-1xl font-bold sm:text-4xl rounded",
@@ -8613,10 +8613,10 @@ async function Lp(e, n) {
   let h = new RegExp(/^(?!.*(.).*\1)[a-z]+$/);
   function l(u) {
     let p = u.filter((i) => i.match(h));
-    (A = p[Math.floor(Math.random() * p.length)]), (v = new Set(p));
+    (A = p[Math.floor(Math.random() * p.length)]), (v = new Set(p)), console.log(A);
   }
   function o(u) {
-    (A = u[Math.floor(Math.random() * u.length)]), (v = new Set(u));
+    (A = u[Math.floor(Math.random() * u.length)]), (v = new Set(u)), console.log(A);
   }
   return (
     e == 5
@@ -8711,17 +8711,17 @@ function Up() {
       children: [
         Be("div", {
           className: "line1 flex justify-center",
-          children: w.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) })),
+          children: w.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) }, y)),
         }),
         Be("div", {
           className: "line2 flex justify-center",
-          children: g.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) })),
+          children: g.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) }, y)),
         }),
         wt("div", {
           className: "line3 flex justify-center",
           children: [
             Be(vi, { keyVal: "ENTER", bigKey: !0 }),
-            a.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) })),
+            a.map((y) => Be(vi, { keyVal: y, wrongKey: A.includes(y) }, y)),
             Be(vi, { keyVal: "<---", bigKey: !0 }),
           ],
         }),
@@ -45796,8 +45796,8 @@ Use Chrome, Firefox or Internet Explorer 11`);
           },
           9301: (w, g, a) => {
             function f() {
-              throw new Error(`secure random number generation not supported by this browser.
-Use chrome, FireFox or Internet Explorer 11`);
+              throw new Error(`secure random number generation not supported by this browser
+use chrome, FireFox or Internet Explorer 11`);
             }
             var y = a(9047),
               b = a(5760),

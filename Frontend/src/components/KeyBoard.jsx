@@ -50,18 +50,18 @@ export default function KeyBoard() {
     <div className="flex-col hidden sm:flex justify-center items-center mt-10" onKeyDown={handleKeyboard}>
       <div className="line1 flex justify-center">
         {keys1.map((key) => {
-          return <Key keyVal={key} wrongKey={wrongLetters.includes(key)} />
+          return <Key keyVal={key} key={key} wrongKey={wrongLetters.includes(key)} />
         })}
       </div>
       <div className="line2 flex justify-center">
         {keys2.map((key) => {
-          return <Key keyVal={key} wrongKey={wrongLetters.includes(key)} />
+          return <Key keyVal={key} key={key} wrongKey={wrongLetters.includes(key)} />
         })}
       </div>
       <div className="line3 flex justify-center">
         <Key keyVal={"ENTER"} bigKey={true} />
         {keys3.map((key) => {
-          return <Key keyVal={key} wrongKey={wrongLetters.includes(key)} />
+          return <Key keyVal={key} key={key} wrongKey={wrongLetters.includes(key)} />
         })}
         <Key keyVal={"<---"} bigKey={true} />
 

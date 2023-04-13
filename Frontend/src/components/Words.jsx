@@ -20,13 +20,14 @@ export default async function GenerateWordSet(number, unique) {
 
     randomWord = uniqueRandomWord[Math.floor(Math.random() * uniqueRandomWord.length)]
     wordSet = new Set(uniqueRandomWord)
-
+    console.log(randomWord)
   }
 
 
   function GenerateNotUnique(input) {
     randomWord = input[Math.floor(Math.random() * input.length)]
     wordSet = new Set(input)
+    console.log(randomWord)
 
   }
 
@@ -34,8 +35,10 @@ export default async function GenerateWordSet(number, unique) {
   if (number == 5) {
     if (unique) {
       GenerateUnique(fiveWords)
+
     } else {
       GenerateNotUnique(fiveWords)
+
     }
   }
 
