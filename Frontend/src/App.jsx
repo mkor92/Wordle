@@ -24,6 +24,7 @@ function App() {
   const [unique, setUnique] = useState(false)
   const [status, setStatus] = useState(false)
   const [errorPopup, setErrorPopup] = useState(false)
+  const [currWord2, setCurrWord2] = useState("")
   const fireGetWords = length + unique
 
   useEffect(() => {
@@ -86,14 +87,20 @@ function App() {
   const onEnter = () => {
     if (currAttempt.letterPos !== length) return;
 
-    let currWord = "";
+    let getCurrWord = "";
+
     for (let i = 0; i < length; i++) {
-      currWord += board[currAttempt.attempt][i];
+      getCurrWord += board[currAttempt.attempt][i];
+
 
     }
+    let currWord = getCurrWord;
 
+    setCurrWord2(currWord.toLowerCase())
     if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 })
+
+
     } else {
       setErrorPopup(true)
     }
@@ -116,6 +123,8 @@ function App() {
 
           <AppContext.Provider
             value={{
+              currWord2,
+              setCurrWord2,
               unique,
               setUnique,
               startTime,

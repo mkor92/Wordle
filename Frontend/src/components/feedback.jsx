@@ -1,13 +1,11 @@
 export default function guessWord(word, guess) {
   let result = [];
-  word = word.toUpperCase();
-  guess = guess.toUpperCase();
 
   let misplacedLetter = [];
   let correctLetter = [];
   let incorrectLetter = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < word.length; i++) {
     result[i] = { letter: guess[i], result: "" };
     if (guess[i] === word[i]) {
       correctLetter.push(guess[i]);
@@ -21,7 +19,7 @@ export default function guessWord(word, guess) {
     }
   }
 
-  for (let y = 0; y < 5; y++) {
+  for (let y = 0; y < word.length; y++) {
     if (
       word.includes(guess[y]) &&
       result[y].result == "Misplaced" &&
@@ -31,6 +29,6 @@ export default function guessWord(word, guess) {
     }
   }
 
-
   return result;
 }
+
