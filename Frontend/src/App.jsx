@@ -3,17 +3,21 @@ import Board from "./components/Board";
 import ErrorPopup from "./components/ErrorPopup";
 import GenerateWordSet from "./components/Words"
 import guessWord from "./components/Feedback"
+import GameOver from "./components/GameOver";
+import InputField from "./components/InputField";
 
 
 
 function App() {
-  const [startTime, setStartTime] = useState({ time: new Date(), started: false });
   const [correctWord, setCorrectWord] = useState("")
   const [wordSet, setWordSet] = useState(new Set())
   const [length, setLength] = useState(5)
   const [unique, setUnique] = useState(false)
   const [attempt, setAttempt] = useState(0)
   const [error, setError] = useState(false)
+  const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
+  const [endTime, setEndTime] = useState(null)
+  const [startTime] = useState(new Date())
   let currWord = ""
   const fireGetWords = length + unique
 
@@ -62,11 +66,13 @@ function App() {
   }
 
   function handleKeyboard(e) {
-    if (e.key === "Enter" && e.target.value.length === correctWord.length) {
+    if (e.key === "Enter") {
       if (e.target.value.length === correctWord.length && e.key === "Enter") {
         currWord = e.target.value
         if (attempt <= 5 && currWord === correctWord) {
-          console.log("congrats")
+          setAttempt(attempt + 1)
+          setEndTime(new Date())
+          setGameOver({ gameOver: true, guessedWord: true })
           e.target.value = ""
         } else if (attempt < 5 && wordSet.has(currWord)) {
           console.log(guessWord(correctWord, currWord))
@@ -75,16 +81,13 @@ function App() {
           console.log(attempt)
         } else if (!wordSet.has(currWord)) {
           setError(true)
-          if (e.key === "Backspace") {
-            setError(false)
-          }
+        } else if (attempt === 5 && currWord != correctWord) {
+          setGameOver({ gameOver: true, guessedWord: false })
         }
-
-
-
       } else return;
-    }
-
+    } else if (e.key === "Backspace") {
+      setError(false)
+    } else return;
   }
 
 
@@ -101,17 +104,13 @@ function App() {
     setLength(e.target.value)
   }
 
-
-
-  function countTime() {
-    if (startTime.started === false) {
-      setStartTime({ time: new Date(), started: true })
-
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard)
+    startTime;
+    return () => {
+      document.removeEventListener("keydown", handleKeyboard)
     }
-    else {
-      return;
-    }
-  }
+  }, [handleKeyboard])
 
 
 
@@ -143,11 +142,20 @@ function App() {
             currWordResult={currWord}
             attempt={attempt}
           />
+
           <ErrorPopup trigger={error} length={length} />
-          <div className='flex flex-col'>
-            <label htmlFor="guessInput" className='text-center mt-5'>Gissa ord</label>
-            <input type="text" id="guessInput" onKeyDown={handleKeyboard} onKeyUp={countTime} className='bg-slate-400 mt-1 h-10 rounded text-center text-xl' />
-          </div>
+          {gameOver.gameOver ?
+            <GameOver
+              endTime={endTime}
+              startTime={startTime}
+              guesses={attempt}
+              length={length}
+              unique={unique}
+              correctWord={correctWord}
+              gameOver={gameOver}
+            /> :
+            <InputField keyboard={handleKeyboard} startTime={handleKeyboard} />}
+
 
         </div>
       </main>
