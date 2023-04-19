@@ -1,17 +1,23 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import GenerateWordSet from "./Words"
+import Guess from "./Guess"
 
-
+import { AppContext } from "../App"
 export default function Board(props) {
+  const { correctWord, setCorrectWord, wordSet, setWordSet } = useContext(AppContext)
+
   const [length, setLength] = useState(5)
   const [unique, setUnique] = useState(false)
-  const [correctWord, setCorrectWord] = useState("")
-  const [wordSet, setWordSet] = useState(new Set())
+
+
+  //const [correctWord, setCorrectWord] = useState("")
+  //const [wordSet, setWordSet] = useState(new Set())
   const handleOnChange = (e) => {
     setLength(e.target.value)
   }
 
   const fireGetWords = length + unique
+
   useEffect(() => {
     async function getWords() {
       let wordLength;
@@ -160,6 +166,9 @@ export default function Board(props) {
       </div>
 
       {getBoardLength()}
+      <Guess
+        wordSet={wordSet}
+        correctWord={correctWord} />
     </div >
   )
 
