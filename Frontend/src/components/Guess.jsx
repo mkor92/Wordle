@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react'
 import guessWord from "./Feedback"
-import StartGame from './StartGame'
-import Board from './Board'
-import ErrorPopup from './ErrorPopup'
-import { AppContext } from '../App'
+
+
+
 function Guess(props) {
   const { correctWord, wordSet } = props;
-  const { currWord } = useContext(AppContext)
-  const [errorPopup, setErrorPopup] = useState(false)
+
+
 
 
 
@@ -17,10 +16,23 @@ function Guess(props) {
       //console.log(`"ordet finns" + ${currWord}`)
     }
   }
+  function setColor() {
+    let color = ""
+    if (result === "Correct") {
+      color = "bg-green-600"
+    } else if (result === "Misplaced") {
+      color = "bg-yellow-600"
+    } else if (result === "Incorrect") {
+      color = "bg-gray-500"
+    } else {
+      color = "bg-slate-600"
+    }
+    return color
+  }
   return (
     <div>
       <StartGame />
-      <ErrorPopup trigger={errorPopup} />
+
     </div>
   )
 }
