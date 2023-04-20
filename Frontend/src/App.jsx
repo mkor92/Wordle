@@ -70,6 +70,7 @@ function App() {
       if (e.target.value.length === correctWord.length && e.key === "Enter") {
         currWord = e.target.value
         if (attempt <= 5 && currWord === correctWord) {
+          console.log(guessWord(correctWord, currWord))
           setAttempt(attempt + 1)
           setEndTime(new Date())
           setGameOver({ gameOver: true, guessedWord: true })
@@ -139,8 +140,8 @@ function App() {
 
           <Board
             length={length}
-            currWordResult={currWord}
-            attempt={attempt}
+          /* currWordResult={currWordResult}
+          attempt={attempt} */
           />
 
           <ErrorPopup trigger={error} length={length} />

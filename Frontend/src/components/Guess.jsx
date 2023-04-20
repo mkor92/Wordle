@@ -1,40 +1,122 @@
 import React, { useContext, useState } from 'react'
-import guessWord from "./Feedback"
+import Letter from './Letter'
 
 
 
-function Guess(props) {
-  const { correctWord, wordSet } = props;
+export default function Guess(props) {
+  const { length } = props
 
 
+  const getBoardLength = () => {
+    if (length == 5) {
+      return (
+        <div className="board flex  items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
 
+        </div>
+      );
+    } else if (length == 6) {
+      return (
+        <div className="board flex items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
 
+        </div>
+      );
+    } else if (length == 7) {
+      return (
+        <div className="board flex items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
 
-  if (currWord.length === correctWord.length) {
-    if (wordSet.has(currWord)) {
-      console.log(guessWord(correctWord, currWord))
-      //console.log(`"ordet finns" + ${currWord}`)
+        </div>
+      );
+    } else if (length == 8) {
+      return (
+        <div className="board flex items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+
+        </div>
+      );
+    } else if (length == 9) {
+      return (
+        <div className="board flex items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+
+        </div>
+      );
+    } else if (length == 10) {
+      return (
+        <div className="board flex items-center">
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+          <Letter length={length} />
+
+        </div>
+      );
     }
   }
-  function setColor() {
-    let color = ""
-    if (result === "Correct") {
-      color = "bg-green-600"
-    } else if (result === "Misplaced") {
-      color = "bg-yellow-600"
-    } else if (result === "Incorrect") {
-      color = "bg-gray-500"
-    } else {
-      color = "bg-slate-600"
-    }
-    return color
-  }
+
+
+
   return (
-    <div>
-      <StartGame />
+    <div className="flex flex-row">
+      {getBoardLength()}
+
 
     </div>
   )
 }
 
-export default Guess
+
+
+
+
+/*function setColor() {
+  let color = ""
+  if (result === "Correct") {
+    color = "bg-green-600"
+  } else if (result === "Misplaced") {
+    color = "bg-yellow-600"
+  } else if (result === "Incorrect") {
+    color = "bg-gray-500"
+  } else {
+    color = "bg-slate-600"
+  }
+  return color
+}*/

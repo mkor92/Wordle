@@ -58,7 +58,7 @@ function GameOver(props) {
         {gameOver.guessedWord && (<h3> You guessed in {guesses} attempts</h3>)}
         {gameOver.guessedWord && (<h3 className="mt-3 mb-2"> Send result to highscore? </h3>)}
         <form>
-          {gameOver.guessedWord && (<input maxLength={25} onChange={getName} type="text" id="name" placeholder="Name..." className="text-lg text-center mb-5"></input>)}
+          {gameOver.guessedWord && (<input maxLength={25} onChange={getName} type="text" id="name" placeholder="Name..." className="text-lg text-center mb-5" ></input>)}
           {gameOver.guessedWord && (<button type="submit" onClick={getStatus} className="bg-slate-600 hover:bg-slate-500 text-white p-1 rounded ml-2">SEND</button>)}
         </form>
         <a onClick={() => { window.location.reload(true) }} className="bg-slate-600  hover:bg-slate-500 cursor-pointer text-white mt-2 p-2 rounded font-bold flex w-fit self-center">Restart game</a>
