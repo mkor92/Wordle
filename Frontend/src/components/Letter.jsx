@@ -23,10 +23,19 @@ export default function Letter(props) {
 
 
   return (
+
     <div className={`h-7 w-7 sm:h-14 sm:w-14 ${setColor()} m-1 flex flex-col justify-center items-center text-1xl font-bold sm:text-4xl rounded`}>
-    </div>
-  )
-}
+    </div>)
+} /* else if (guessRow === 1) {
+    rowArray = [...guessRow + guessRow]
+    return (
+      <div className={`h-7 w-7 sm:h-14 sm:w-14 ${setColor()} m-1 flex flex-col justify-center items-center text-1xl font-bold sm:text-4xl rounded`}>
+      </div>
+    )
+
+
+  } */
+
 
 
 /*

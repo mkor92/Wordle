@@ -16,7 +16,7 @@ export default function Guess(props) {
 
       return (
 
-        <div id={guessRow} className="board flex  items-center">
+        <div className="board flex  items-center">
           <Letter
             length={length}
             currentGuess={currentGuess}
