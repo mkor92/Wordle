@@ -12,42 +12,45 @@ export default function Guess(props) {
 
   const getBoardLength = () => {
     if (length == 5) {
+
+
       return (
 
-        <div className="board flex  items-center">
+        <div id={guessRow} className="board flex  items-center">
           <Letter
             length={length}
             currentGuess={currentGuess}
             attempt={attempt}
             guessRow={guessRow}
-            id={0} />
+            letterPos={0} />
           <Letter
             length={length}
             currentGuess={currentGuess}
             attempt={attempt}
             guessRow={guessRow}
-            id={1} />
+            letterPos={1} />
           <Letter
             length={length}
             currentGuess={currentGuess}
             attempt={attempt}
             guessRow={guessRow}
-            id={2} />
+            letterPos={2} />
           <Letter
             length={length}
             currentGuess={currentGuess}
             attempt={attempt}
             guessRow={guessRow}
-            id={3} />
+            letterPos={3} />
           <Letter
             length={length}
             currentGuess={currentGuess}
             attempt={attempt}
             guessRow={guessRow}
-            id={4} />
+            letterPos={4} />
 
         </div>
-      );
+      )
+
     } else if (length == 6) {
       return (
         <div className="board flex items-center">

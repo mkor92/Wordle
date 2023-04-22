@@ -85,7 +85,7 @@ function App() {
 
           setAttempt(attempt + 1)
           e.target.value = ""
-          console.log(attempt)
+
         } else if (!wordSet.has(updateCurr)) {
           setError(true)
         } else if (attempt === 5 && updateCurr != correctWord) {
