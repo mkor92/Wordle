@@ -5,21 +5,20 @@ export default function Letter(props) {
   const { length, letter, currentGuess, attempt, guessRow, letterPos } = props
 
   function setColor() {
-    let color = "bg-slate-600"
-
-
-    if (currentGuess.result === "Correct") {
-
-      color = "bg-green-600"
-      if (currentGuess.result === "Misplaced") {
-        color = "bg-yellow-600"
+    let color = "";
+    if (currentGuess.length === length) {
+      if (currentGuess[letterPos].result === "Correct") {
+        color = "bg-green-600";
+      } else if (currentGuess[letterPos].result === "Misplaced") {
+        color = "bg-yellow-600";
       } else {
-        color = "bg-red-400"
+        color = "bg-gray-500";
       }
-
+    } else {
+      color = "bg-slate-600"
     }
 
-    return color
+    return color;
   }
 
 
@@ -31,14 +30,6 @@ export default function Letter(props) {
 
 
 /*
-[0: letter: x result: Correct]
-letterPos(x) = currentGuess[x]
-
-let letterPosColor = [];
-
-for (let i = 0; i < length; i++) {
-  if (currentGuess[i].result === "Correct") 
-}
 
 function setColor() {
   let color = "";
