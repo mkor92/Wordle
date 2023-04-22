@@ -5,7 +5,7 @@ import Guess from "./Guess"
 
 export default function Board(props) {
 
-  const { length } = props
+  const { length, currentGuess, attempt } = props
 
 
 
@@ -19,23 +19,14 @@ export default function Board(props) {
 
     < div id={length} className="" >
       <div className="board flex flex-col items-center">
-
-        <Guess length={length} />
-
-
-        <Guess length={length} />
-
-
-        <Guess length={length} />
+        <Guess length={length} attempt={attempt} guessRow={0} currentGuess={currentGuess} />
+        <Guess length={length} attempt={attempt} guessRow={1} currentGuess={currentGuess} />
+        <Guess length={length} attempt={attempt} guessRow={2} currentGuess={currentGuess} />
+        <Guess length={length} attempt={attempt} guessRow={3} currentGuess={currentGuess} />
+        <Guess length={length} attempt={attempt} guessRow={4} currentGuess={currentGuess} />
+        <Guess length={length} attempt={attempt} guessRow={5} currentGuess={currentGuess} />
 
 
-        <Guess length={length} />
-
-
-        <Guess length={length} />
-
-
-        <Guess length={length} />
 
 
       </div>

@@ -2,9 +2,9 @@ import { useState, createContext, useEffect } from "react";
 import Board from "./components/Board";
 import ErrorPopup from "./components/ErrorPopup";
 import GenerateWordSet from "./components/Words"
-import guessWord from "./components/Feedback"
 import GameOver from "./components/GameOver";
 import InputField from "./components/InputField";
+import guessWord from "./components/Feedback"
 
 
 
@@ -18,7 +18,9 @@ function App() {
   const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
   const [endTime, setEndTime] = useState(null)
   const [startTime] = useState(new Date())
-  let currWord = ""
+  const [currWord, setCurrWord] = useState("")
+  const [currentGuess, setCurrentGuess] = useState([])
+  let updateCurr = ""
   const fireGetWords = length + unique
 
   useEffect(() => {
@@ -68,21 +70,25 @@ function App() {
   function handleKeyboard(e) {
     if (e.key === "Enter") {
       if (e.target.value.length === correctWord.length && e.key === "Enter") {
-        currWord = e.target.value
-        if (attempt <= 5 && currWord === correctWord) {
-          console.log(guessWord(correctWord, currWord))
+        updateCurr = e.target.value
+        setCurrWord(e.target.value)
+        console.log(updateCurr)
+        setCurrentGuess(guessWord(correctWord, updateCurr))
+
+        if (attempt <= 5 && updateCurr === correctWord) {
+
           setAttempt(attempt + 1)
           setEndTime(new Date())
           setGameOver({ gameOver: true, guessedWord: true })
           e.target.value = ""
-        } else if (attempt < 5 && wordSet.has(currWord)) {
-          console.log(guessWord(correctWord, currWord))
+        } else if (attempt < 5 && wordSet.has(updateCurr)) {
+
           setAttempt(attempt + 1)
           e.target.value = ""
           console.log(attempt)
-        } else if (!wordSet.has(currWord)) {
+        } else if (!wordSet.has(updateCurr)) {
           setError(true)
-        } else if (attempt === 5 && currWord != correctWord) {
+        } else if (attempt === 5 && updateCurr != correctWord) {
           setGameOver({ gameOver: true, guessedWord: false })
         }
       } else return;
@@ -140,8 +146,8 @@ function App() {
 
           <Board
             length={length}
-          /* currWordResult={currWordResult}
-          attempt={attempt} */
+            currentGuess={currentGuess}
+            attempt={attempt}
           />
 
           <ErrorPopup trigger={error} length={length} />

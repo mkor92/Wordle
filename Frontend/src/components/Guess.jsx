@@ -4,18 +4,47 @@ import Letter from './Letter'
 
 
 export default function Guess(props) {
-  const { length } = props
+  const { length, currentGuess, attempt, guessRow } = props
+
+
+
 
 
   const getBoardLength = () => {
     if (length == 5) {
       return (
+
         <div className="board flex  items-center">
-          <Letter length={length} />
-          <Letter length={length} />
-          <Letter length={length} />
-          <Letter length={length} />
-          <Letter length={length} />
+          <Letter
+            length={length}
+            currentGuess={currentGuess}
+            attempt={attempt}
+            guessRow={guessRow}
+            id={0} />
+          <Letter
+            length={length}
+            currentGuess={currentGuess}
+            attempt={attempt}
+            guessRow={guessRow}
+            id={1} />
+          <Letter
+            length={length}
+            currentGuess={currentGuess}
+            attempt={attempt}
+            guessRow={guessRow}
+            id={2} />
+          <Letter
+            length={length}
+            currentGuess={currentGuess}
+            attempt={attempt}
+            guessRow={guessRow}
+            id={3} />
+          <Letter
+            length={length}
+            currentGuess={currentGuess}
+            attempt={attempt}
+            guessRow={guessRow}
+            id={4} />
 
         </div>
       );
@@ -107,16 +136,3 @@ export default function Guess(props) {
 
 
 
-/*function setColor() {
-  let color = ""
-  if (result === "Correct") {
-    color = "bg-green-600"
-  } else if (result === "Misplaced") {
-    color = "bg-yellow-600"
-  } else if (result === "Incorrect") {
-    color = "bg-gray-500"
-  } else {
-    color = "bg-slate-600"
-  }
-  return color
-}*/
