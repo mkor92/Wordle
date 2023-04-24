@@ -5,7 +5,7 @@ import GenerateWordSet from "./components/Words"
 import GameOver from "./components/GameOver";
 import InputField from "./components/InputField";
 import guessWord from "./components/Feedback"
-
+import { boardDefault } from "./components/BoardDefault";
 
 
 function App() {
@@ -19,9 +19,11 @@ function App() {
   const [endTime, setEndTime] = useState(null)
   const [startTime] = useState(new Date())
   const [currWord, setCurrWord] = useState("")
-  const [currentGuess, setCurrentGuess] = useState([])
+  const [currentGuess, setCurrentGuess] = useState(boardDefault)
   let updateCurr = ""
   const fireGetWords = length + unique
+  //console.log(currentGuess)
+
 
   useEffect(() => {
     async function getWords() {
@@ -73,15 +75,20 @@ function App() {
         updateCurr = e.target.value
         setCurrWord(e.target.value)
         console.log(updateCurr)
-        setCurrentGuess(guessWord(correctWord, updateCurr))
+
 
         if (attempt <= 5 && updateCurr === correctWord) {
-
+          const newArray = [...currentGuess];
+          newArray[attempt] = guessWord(correctWord, updateCurr)
+          setCurrentGuess(newArray)
           setAttempt(attempt + 1)
           setEndTime(new Date())
           setGameOver({ gameOver: true, guessedWord: true })
           e.target.value = ""
         } else if (attempt < 5 && wordSet.has(updateCurr)) {
+          const newArray = [...currentGuess];
+          newArray[attempt] = guessWord(correctWord, updateCurr)
+          setCurrentGuess(newArray)
 
           setAttempt(attempt + 1)
           e.target.value = ""
@@ -89,6 +96,9 @@ function App() {
         } else if (!wordSet.has(updateCurr)) {
           setError(true)
         } else if (attempt === 5 && updateCurr != correctWord) {
+          const newArray = [...currentGuess];
+          newArray[attempt] = guessWord(correctWord, updateCurr)
+          setCurrentGuess(newArray)
           setGameOver({ gameOver: true, guessedWord: false })
         }
       } else return;
@@ -129,9 +139,10 @@ function App() {
       <main className="flex flex-col justify-center items-center h-full mt-16">
         <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center max-w-full">
           <h1 className="text-4xl w-fit mb-5">Wordle</h1>
-          <label htmlFor="uniqueLetters" className="mr-4 text-lg">Only use words with unique letters</label>
-          <input type="checkbox" onChange={handleUnique} id="uniqueLetters" className="h-5 w-5  rounded shadow bg-green-600" />
-
+          <div>
+            <label htmlFor="uniqueLetters" className="mr-4 text-lg">Only use words with unique letters</label>
+            <input type="checkbox" onChange={handleUnique} id="uniqueLetters" className="h-5 w-5  rounded shadow bg-green-600" />
+          </div>
           <div className="flex mt-2 mb-4">
             <p className="mr-4 text-lg">How many letters?</p>
             <select className="w-10 bg-gray-400 rounded text-center text-base shadow" value={length} onChange={handleOnChange}>
