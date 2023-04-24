@@ -1,22 +1,16 @@
-import { useState, useEffect, useContext } from "react"
-
 import Guess from "./Guess"
 
 
 export default function Board(props) {
 
-  const { length, currentGuess, attempt } = props
-  const [board, setBoard] = useState([])
-  //console.log(currentGuess)
-
-  //console.log(dummyArray)
+  const { length, currentGuess } = props
 
 
   return (
-    currentGuess.map((guess) => {
+    currentGuess.map((guess, i) => {
 
       return (
-        <Guess currentGuess={guess} length={length} />
+        <Guess currentGuess={guess} length={length} key={i} />
       )
     })
 

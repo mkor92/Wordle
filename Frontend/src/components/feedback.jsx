@@ -16,8 +16,17 @@ export default function guessWord(word, guess) {
       correctLetter.push(guess[i]);
       result[i].result = "Correct";
     } else if (word.includes(guess[i])) {
-      misplacedLetter.push(guess[i]);
-      result[i].result = "Misplaced";
+      if (misplacedLetter.includes(guess[i]) && wordContainsRepeatingChars(word) === true) {
+        misplacedLetter.push(guess[i]);
+        result[i].result = "Misplaced";
+      } else if (!misplacedLetter.includes(guess[i])) {
+        misplacedLetter.push(guess[i]);
+        result[i].result = "Misplaced";
+      }
+      else {
+        incorrectLetter.push(guess[i]);
+        result[i].result = "Incorrect";
+      }
     } else {
       incorrectLetter.push(guess[i]);
       result[i].result = "Incorrect";
@@ -38,6 +47,3 @@ export default function guessWord(word, guess) {
 
   return result;
 }
-
-
-// Example usage:

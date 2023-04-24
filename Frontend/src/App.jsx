@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Board from "./components/Board";
 import ErrorPopup from "./components/ErrorPopup";
 import GenerateWordSet from "./components/Words"
@@ -18,11 +18,11 @@ function App() {
   const [gameOver, setGameOver] = useState({ gameOver: false, guessedWord: false })
   const [endTime, setEndTime] = useState(null)
   const [startTime] = useState(new Date())
-  const [currWord, setCurrWord] = useState("")
-  const [currentGuess, setCurrentGuess] = useState(boardDefault)
-  let updateCurr = ""
+
+  const [guesses, setGuesses] = useState(boardDefault)
+  let currWord = ""
   const fireGetWords = length + unique
-  //console.log(currentGuess)
+
 
 
   useEffect(() => {
@@ -71,49 +71,42 @@ function App() {
 
   function handleKeyboard(e) {
     if (e.key === "Enter") {
-      if (e.target.value.length === correctWord.length && e.key === "Enter") {
-        updateCurr = e.target.value
-        setCurrWord(e.target.value)
-        console.log(updateCurr)
-
-
-        if (attempt <= 5 && updateCurr === correctWord) {
-          const newArray = [...currentGuess];
-          newArray[attempt] = guessWord(correctWord, updateCurr)
-          setCurrentGuess(newArray)
+      if (e.target.value.length === correctWord.length) {
+        currWord = e.target.value
+        setError(false)
+        if (attempt <= 5 && currWord === correctWord) {
+          const newArray = [...guesses];
+          newArray[attempt] = guessWord(correctWord, currWord)
+          setGuesses(newArray)
           setAttempt(attempt + 1)
           setEndTime(new Date())
           setGameOver({ gameOver: true, guessedWord: true })
           e.target.value = ""
-        } else if (attempt < 5 && wordSet.has(updateCurr)) {
-          const newArray = [...currentGuess];
-          newArray[attempt] = guessWord(correctWord, updateCurr)
-          setCurrentGuess(newArray)
+        } else if (attempt < 5 && wordSet.has(currWord)) {
+          const newArray = [...guesses];
+          newArray[attempt] = guessWord(correctWord, currWord)
+          setGuesses(newArray)
 
           setAttempt(attempt + 1)
           e.target.value = ""
 
-        } else if (!wordSet.has(updateCurr)) {
+        } else if (!wordSet.has(currWord)) {
           setError(true)
-        } else if (attempt === 5 && updateCurr != correctWord) {
-          const newArray = [...currentGuess];
-          newArray[attempt] = guessWord(correctWord, updateCurr)
-          setCurrentGuess(newArray)
+        } else if (attempt === 5 && currWord != correctWord) {
+          const newArray = [...guesses];
+          newArray[attempt] = guessWord(correctWord, currWord)
+          setGuesses(newArray)
           setGameOver({ gameOver: true, guessedWord: false })
         }
-      } else return;
+      } else if (e.target.value.length != correctWord.length && e.target.value.length > 2) {
+        setError(true)
+      }
     } else if (e.key === "Backspace") {
       setError(false)
     } else return;
   }
 
 
-  /*if (currWord.length === correctWord.length) {
-    if (wordSet.has(currWord)) {
-      console.log(guessWord(correctWord, currWord))
-      //console.log(`"ordet finns" + ${currWord}`)
-    }
-  }*/
 
 
 
@@ -123,6 +116,7 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyboard)
+
     startTime;
     return () => {
       document.removeEventListener("keydown", handleKeyboard)
@@ -137,7 +131,7 @@ function App() {
     <div className="App">
 
       <main className="flex flex-col justify-center items-center h-full mt-16">
-        <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center max-w-full">
+        <div className=" bg-slate-300 rounded p-5 flex flex-col justify-center items-center max-w-full mb-14">
           <h1 className="text-4xl w-fit mb-5">Wordle</h1>
           <div>
             <label htmlFor="uniqueLetters" className="mr-4 text-lg">Only use words with unique letters</label>
@@ -157,7 +151,7 @@ function App() {
 
           <Board
             length={length}
-            currentGuess={currentGuess}
+            currentGuess={guesses}
             attempt={attempt}
           />
 
@@ -182,4 +176,3 @@ function App() {
 }
 
 export default App;
-//<ErrorPopup trigger={errorPopup} />

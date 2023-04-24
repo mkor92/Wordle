@@ -4,7 +4,7 @@ import Letter from './Letter'
 
 
 export default function Guess(props) {
-  const { length, currentGuess, attempt, guessRow } = props
+  const { length, currentGuess } = props
 
 
 
