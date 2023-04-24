@@ -1,5 +1,5 @@
 import { Router } from "express";
-import menu from "../../static/JS/menu.js";
+import menu from "../../public/JS/menu.js";
 const router = Router();
 
 function menuWithActive(items, path) {

@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/" />
+    <!-- <base href="/" /> -->
 
-    <link rel="stylesheet" href="../static/css/output.css" />
+    <link rel="stylesheet" href="../../public/css/output.css" />
 
     <title>Wordle game</title>
   </head>
@@ -17,7 +17,7 @@
         <% menu.forEach(function(a) { %>
         <li class="list-none">
           <a
-            class="text-white text-xl <% if (a.active) { %> !text-gray-100 font-bold text-2xl <% } %>"
+            class="text-white text-xl <% if (a.active) { %> !text-gray-100 !font-bold !text-2xl <% } %>"
             href="<%= a.link %>">
             <%= a.label %>
           </a>

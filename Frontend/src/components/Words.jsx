@@ -28,14 +28,17 @@ export default async function GenerateWordSet(number, unique) {
     randomWord = input[Math.floor(Math.random() * input.length)]
     wordSet = new Set(input)
 
+
   }
 
 
   if (number == 5) {
     if (unique) {
       GenerateUnique(fiveWords)
+
     } else {
       GenerateNotUnique(fiveWords)
+
     }
   }
 
